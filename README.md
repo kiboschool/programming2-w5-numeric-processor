@@ -8,13 +8,12 @@ First, your equipment performs measurements, and creates digital files containin
 {
     "computations":
     [
-        ["add", "16.393504", "41.838937"],
-        ["multiply", "ANS", "14.8865938"],
-        ["subtract", "ANS", "28.911410"],
-        ["display", "ANS"]
+        {"operation": "add", "values": ["16.393504", "41.838937"]},
+        {"operation": "multiply", "values": ["ANS", "14.8865938"]},
+        {"operation": "subtract", "values": ["ANS", "28.911410"]},
+        {"operation": "display", "values": ["ANS"]}
     ]
 }
-
 ```
 
 The special string `ANS` means that you should use result of the previous computation that was done.
@@ -55,10 +54,9 @@ You will also support the operation `api-compute`.
 
 ```
 {
-    "computations":
-    [
-        ["api-compute", "45*(44.847626-24.022232)"],
-        ["display", "ANS"]
+    "computations": [
+        {"operation": "api-compute", "values": ["45*(44.847626-24.022232)"]}
+        {"operation": "display", "values": ["ANS"]}
     ]
 }
 

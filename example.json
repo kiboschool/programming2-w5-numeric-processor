@@ -1,0 +1,9 @@
+{
+    "computations":
+    [
+        {"operation": "add", "values": ["1", "2"]},
+        {"operation": "add", "values": ["1", "ANS"]},
+        {"operation": "multiply", "values": ["ANS", "3"]},
+        {"operation": "display", "values": ["ANS"]}
+    ]
+}
