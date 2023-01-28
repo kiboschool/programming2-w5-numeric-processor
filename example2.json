@@ -1,7 +1,7 @@
 {
     "computations":
     [
-        {"operation": "api-compute", "values": ["1+(2*3)"]},
+        {"operation": "api-compute", "values": ["1 + (2 * 3)"]},
         {"operation": "add", "values": ["1", "ANS"]},
         {"operation": "display", "values": ["ANS"]}
     ]
