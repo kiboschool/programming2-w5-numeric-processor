@@ -3,10 +3,16 @@ import json
 import urllib.request 
 import time
 
+
 def computations_list_from_file(filename):
     with open(filename, 'r') as f:
         contents = json.load(f)
         return contents['computations']
+
+def get_mathjs_api_url(expression):
+    expression = urllib.parse.quote(expression)
+    url = 'http://api.mathjs.org/v4/?expr=' + expression
+    return url
 
 class NumericProcessor:
     def __init__(self, computations_list):
@@ -60,42 +66,36 @@ class NumericProcessor:
         print(values[0])
         return values[0]
     
-    def prepareQuery(self, expression):
-        expression = urllib.parse.quote(expression)
-        url = 'http://api.mathjs.org/v4/?expr=' + expression
-        return url
-    
     def op_api_compute(self, values):
         expression = values[0]
-        url = self.prepareQuery(expression)
+        url = get_mathjs_api_url(expression)
         response = urllib.request.urlopen(url)
         result = response.read().decode('utf-8')
         return float(result)
     
     
-    
-class NumericProcessorBenchmarkCounts(NumericProcessor):
+class NumericProcessor_CountOperations(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
-        self.benchmark_per_operation = {}
+        self.count_operations = {}
     
     def run_computation(self, computation):
         op = computation['operation']
-        if op in self.benchmark_per_operation:
-            self.benchmark_per_operation[op] += 1
+        if op in self.count_operations:
+            self.count_operations[op] += 1
         else:
-            self.benchmark_per_operation[op] = 1
+            self.count_operations[op] = 1
         
         return super().run_computation(computation)
     
     def show_benchmarks(self):
-        print(self.benchmark_per_operation)
+        print(self.count_operations)
 
-class NumericProcessorBenchmarkTiming(NumericProcessor):
+class NumericProcessor_BenchmarkOperations(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
-        self.benchmark_per_operation = {}
-        self.benchmark_duration_per_operation = {}
+        self.count_operations = {}
+        self.benchmark_operations = {}
     
     def run_computation(self, computation):
         started = time.time()
@@ -104,27 +104,27 @@ class NumericProcessorBenchmarkTiming(NumericProcessor):
         duration = ended - started
         
         op = computation['operation']
-        if op in self.benchmark_per_operation:
-            self.benchmark_per_operation[op] += 1
+        if op in self.count_operations:
+            self.count_operations[op] += 1
         else:
-            self.benchmark_per_operation[op] = 1
+            self.count_operations[op] = 1
             
-        if op in self.benchmark_duration_per_operation:
-            self.benchmark_duration_per_operation[op] += duration
+        if op in self.benchmark_operations:
+            self.benchmark_operations[op] += duration
         else:
-            self.benchmark_duration_per_operation[op] = duration
+            self.benchmark_operations[op] = duration
         
         return ret
     
     def show_benchmarks(self):
-        for key in self.benchmark_per_operation:
-            print(key)
-            print('#', self.benchmark_per_operation[key])
-            print('avg duration (s)', self.benchmark_duration_per_operation[key] / self.benchmark_per_operation[key])
+        for op in self.count_operations:
+            print(op)
+            print('#', self.count_operations[op])
+            print('avg duration (s)', self.benchmark_operations[op] / self.count_operations[op])
 
 if __name__ == '__main__':
     computations = computations_list_from_file('example2.json')
-    o = NumericProcessorBenchmarkTiming(computations)
+    o = NumericProcessor_BenchmarkOperations(computations)
     o.run_computations()
     o.show_benchmarks()
 
