@@ -12,16 +12,16 @@ import numeric_processor
 actually_hit_api = False
 
 class TestJukebox(unittest.TestCase):
-    @weight(2)
+    @weight(3)
     def test_simple_add(self):
         computations = [
-            {"operation": "add", "values": ["1.23", "3.01"]},
+            {"operation": "add", "values": ["1", "2"]},
             {"operation": "display", "values": ["ANS"]}
         ]
         result = self.run_and_get_stdout(computations)
-        self.assertAlmostEqual(float(result), 4.24)
+        self.assertAlmostEqual(float(result), 3)
     
-    @weight(2)
+    @weight(3)
     def test_add(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -31,7 +31,7 @@ class TestJukebox(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 5.25)
     
-    @weight(2)
+    @weight(3)
     def test_subtract(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -41,7 +41,7 @@ class TestJukebox(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 3.23)
         
-    @weight(2)
+    @weight(3)
     def test_multiply(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -51,7 +51,7 @@ class TestJukebox(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 4.664)
         
-    @weight(2)
+    @weight(3)
     def test_divide(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},

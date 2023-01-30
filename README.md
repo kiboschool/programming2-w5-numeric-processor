@@ -106,5 +106,21 @@ When you're done, both classes, NumericProcessor and NumericProcessorWithCloudCo
 
 When you run your program on `example.json`, the answer shown should be `76.87316`.
 
-## Bonus
-C
+## Additional Challenge (Optional)
+
+Add `ANS` support for `api-compute`. 
+
+## Rubric
+
+Points | Criteria | Description
+--------- | ------- | ---------
+15 | Simple operation | Program can add 1 and 2 to get 3
+60 | Computations are correct | Program can add (15 points), subtract (15 points), multiply (15 points), and divide (15 points)
+5 | Display operation works | Program supports more than one display in an input file
+5 | Simple api call works | Program can run a simple api call
+5 | More complicated api call works | Program can run a more complicated api call
+5 | `count` statistics | Program can count how many times operations were run
+5 | `duration` statistics | Program can determine the average duration it took for operations were run
+
+
+
