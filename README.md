@@ -106,4 +106,5 @@ When you're done, both classes, NumericProcessor and NumericProcessorWithCloudCo
 
 When you run your program on `example.json`, the answer shown should be `76.87316`.
 
-
+## Bonus
+C

@@ -4,16 +4,6 @@ import urllib.request
 import time
 
 
-def computations_list_from_file(filename):
-    with open(filename, 'r') as f:
-        contents = json.load(f)
-        return contents['computations']
-
-def get_mathjs_api_url(expression):
-    expression = urllib.parse.quote(expression)
-    url = 'http://api.mathjs.org/v4/?expr=' + expression
-    return url
-
 class NumericProcessor:
     def __init__(self, computations_list):
         self.last_result = None
@@ -72,7 +62,17 @@ class NumericProcessor:
         response = urllib.request.urlopen(url)
         result = response.read().decode('utf-8')
         return float(result)
-    
+
+
+def computations_list_from_file(filename):
+    with open(filename, 'r') as f:
+        contents = json.load(f)
+        return contents['computations']
+
+def get_mathjs_api_url(expression):
+    expression = urllib.parse.quote(expression)
+    url = 'http://api.mathjs.org/v4/?expr=' + expression
+    return url
     
 class NumericProcessor_CountOperations(NumericProcessor):
     def __init__(self, filename):
@@ -88,8 +88,10 @@ class NumericProcessor_CountOperations(NumericProcessor):
         
         return super().run_computation(computation)
     
-    def show_benchmarks(self):
-        print(self.count_operations)
+    def show_statistics(self):
+        for op in self.count_operations:
+            count = self.count_operations[op]
+            print(f'operation: {op}, count: {count}')
 
 class NumericProcessor_BenchmarkOperations(NumericProcessor):
     def __init__(self, filename):
@@ -116,15 +118,16 @@ class NumericProcessor_BenchmarkOperations(NumericProcessor):
         
         return ret
     
-    def show_benchmarks(self):
+    def show_statistics(self):
         for op in self.count_operations:
-            print(op)
-            print('#', self.count_operations[op])
-            print('avg duration (s)', self.benchmark_operations[op] / self.count_operations[op])
+            duration = self.benchmark_operations[op] / self.count_operations[op]
+            print(f'operation: {op}, average duration: {duration}')
 
 if __name__ == '__main__':
-    computations = computations_list_from_file('example2.json')
-    o = NumericProcessor_BenchmarkOperations(computations)
+    computations = computations_list_from_file('example.json')
+    o = NumericProcessor_CountOperations(computations)
     o.run_computations()
-    o.show_benchmarks()
+    o.show_statistics()
+
+
 
