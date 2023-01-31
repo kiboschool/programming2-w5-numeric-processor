@@ -5,19 +5,16 @@ import unittest
 from unittest.mock import patch, Mock
 from gradescope_utils.autograder_utils.decorators import weight
 
-# Don't import NumericProcessor_BenchmarkOperations yet,
-# so that tests still run even if you haven't added that class yet.
 import numeric_processor
 
-actually_hit_api = False
-
-class TestJukebox(unittest.TestCase):
+class TestNumericProcessor(unittest.TestCase):
     @weight(4)
     def test_simple_add(self):
         computations = [
             {"operation": "add", "values": ["1", "2"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 3)
     
@@ -28,6 +25,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "add", "values": ["ANS", "1.01"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 5.25)
     
@@ -38,6 +36,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "subtract", "values": ["ANS", "1.01"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 3.23)
         
@@ -48,6 +47,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "multiply", "values": ["ANS", "1.1"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 4.664)
         
@@ -58,6 +58,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "divide", "values": ["ANS", "2.5"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 1.696)
     
@@ -70,6 +71,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "display", "values": ["ANS"]},
             {"operation": "add", "values": ["7", "8"]},
         ]
+        
         result = self.run_and_get_stdout(computations)
         result = result.replace('\r\n', '\n').split('\n')
         self.assertEqual(len(result), 2)
@@ -83,6 +85,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "api-compute", "values": ["2*3"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_with_mocked_api_result(computations, b'6.0',
             'http://api.mathjs.org/v4/?expr=2%2A3')
         self.assertAlmostEqual(float(result), 6)
@@ -94,6 +97,7 @@ class TestJukebox(unittest.TestCase):
             {"operation": "api-compute", "values": ["2*(3+5)"]},
             {"operation": "display", "values": ["ANS"]}
         ]
+        
         result = self.run_with_mocked_api_result(computations, b'16.0',
             'http://api.mathjs.org/v4/?expr=2%2A%283%2B5%29')
         self.assertAlmostEqual(float(result), 16)
@@ -138,6 +142,8 @@ class TestJukebox(unittest.TestCase):
     
     def run_with_mocked_api_result(self, computations, mock_api_result_in_bytes,
             assert_called_with):
+
+        actually_hit_api = False
         if actually_hit_api:
             return self.run_and_get_stdout(computations)
         else:
