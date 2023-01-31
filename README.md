@@ -35,7 +35,7 @@ These dedicated servers can be faster and more cost-effective for programmers, b
 
 As described later, your program will similarly be able to offload processing to an online server, by connecting to a real API.
 
-<img src="calc.png" width="4%" height="4%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
+<img src="cloud.png" width="30%" height="30%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
 
 ### Details
 
@@ -74,6 +74,8 @@ You will also support the operation `"api-compute"`.
 ```
 
 You will make`"api-compute"` send the string with an api call to mathjs.org. A helper function is already there to create the url you will send to that server.
+
+<img src="calc.png" width="30%" height="30%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
 
 ### What you'll do
 
@@ -142,14 +144,6 @@ Your program will also use **class inheritance** to be able to run in a differen
   operation: display, count: 1
   ```
 
-### Additional Challenges (Optional)
-
-* The string sent to `api-compute` can contain `ANS`.
-  * Before sending to the api you would replace `ANS` with the last result.
-* Create a `NumericProcessor_BenchmarkOperations` class that inherits from `NumericProcessor`.
-  * It measures the average duration for each type of operation.
-  * Refer to the reflex-typing-speed project from Programming 1 for how to use `time.time()` to measure how long something takes.
-  * It would show, for example, `operation: api-compute, average duration: 0.4564`.
 
 ## Rubric
 
@@ -162,5 +156,13 @@ Points | Criteria | Description
 5 | More complicated api call | Program can run a more complicated api call
 5 | `NumericProcessor_CountOperations` class | Program can count how many times operations were run
 
+### Additional Challenges (Optional)
+
+* The string sent to `api-compute` can contain `ANS`.
+  * Before sending to the api you would replace `ANS` with the last result.
+* Create a `NumericProcessor_BenchmarkOperations` class that inherits from `NumericProcessor`.
+  * It measures the average duration for each type of operation.
+  * Refer to the reflex-typing-speed project from Programming 1 for how to use `time.time()` to measure how long something takes.
+  * It would show, for example, `operation: api-compute, average duration: 0.4564`.
 
 
