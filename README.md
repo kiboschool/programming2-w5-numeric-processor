@@ -35,9 +35,9 @@ These dedicated servers can be faster and more cost-effective for programmers, b
 
 As described later, your program will similarly be able to offload processing to an online server, by connecting to a real API.
 
-<img src="cloud.png" width="30%" height="30%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
+<img src="cloud.png" width="10%" height="10%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
 
-### Details
+### Requirements
 
 These are the types of processor operations that you should support, and what they should do.
 
@@ -75,13 +75,13 @@ You will also support the operation `"api-compute"`.
 
 You will make`"api-compute"` send the string with an api call to mathjs.org. A helper function is already there to create the url you will send to that server.
 
-<img src="calc.png" width="30%" height="30%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
+<img src="calc.png" width="10%" height="10%" style="border:none, border-width: 0, border: 0; box-shadow: 0px 0px;" />
 
 ### What you'll do
 
 > *You'll need to use the exact names mentioned here. The automated tests in this project will pass when your code is working as expected.*
 
-You can follow these steps to solve the problem,
+You can follow these steps:
 
 * Open `numeric_processor.py`
 * See that the `NumericProcessor` has an `__init__` method. This method stores `self.computations_list`.
@@ -91,7 +91,7 @@ You can follow these steps to solve the problem,
         * This method looks at the computation name and calls a corresponding method and passing the `values`.
         * So your class should have a method for addition, a method for subtraction, etc.
         * Write a method for display.
-* See the example code at the bottom of the file. You don't need to make any changes to `computations_list_from_file`, you can use it as-is.
+* See the example code at the bottom of the file. You don't need to make any changes to `computations_list_from_file`.
 
 Your program should now be able to run this json file:
 
@@ -115,7 +115,7 @@ The `NumericProcessor` should now be able to run the `example.json` file.
     * It should use the provided `get_mathjs_api_url` helper function to get the url. (The provided `get_mathjs_api_url` already works, you don't need to change it).
     * Use `urllib.request.urlopen` on the url to get a `response`.
     * Use `response.read().decode('utf-8')` to get a result.
-    * Use `float(result)` to turn the result into a float, aka a number.
+    * Use `float(result)` to turn the result into a float (in other words, a number).
     * Return the number.
 * Update the `run_computation` method to look for `"api-compute"`. If that is the operation, send the first value to this new `send_to_api` method and store the result.
 
@@ -144,17 +144,18 @@ Your program will also use **class inheritance** to be able to run in a differen
   operation: display, count: 1
   ```
 
+You can now change the test code at the bottom of the file. You can now create an instance of `NumericProcessor_CountOperations` and use it just like  `NumericProcessor`. At the end, you can call `show_statistics` on the instance and see the counts.
 
 ## Rubric
 
 Points | Criteria | Description
 --------- | ------- | ---------
-20 | Simple operation | Program can add two numbers and show the result
-60 | Computations are correct | Program can add (15 points), subtract (15 points), multiply (15 points), and divide (15 points)
-5 | Display operation | Program supports more than one display in an input file
+20 | Simple computation | Program can add two numbers and show the result
+60 | All operations supported | Program can add (15 points), subtract (15 points), multiply (15 points), and divide (15 points)
+5 | Display | Program supports more than one display in an input file
 5 | Simple api call | Program can run a simple api call
-5 | More complicated api call | Program can run a more complicated api call
-5 | `NumericProcessor_CountOperations` class | Program can count how many times operations were run
+5 | More-complicated api call | Program can run a more-complicated api call
+5 | `NumericProcessor_CountOperations` | Program can count how many times operations were run
 
 ### Additional Challenges (Optional)
 
