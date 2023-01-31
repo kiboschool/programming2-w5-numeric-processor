@@ -112,7 +112,7 @@ class TestNumericProcessor(unittest.TestCase):
         ]
         
         result = self.run_and_get_stats(computations, 
-            numeric_processor.NumericProcessor_CountOperations)
+            numeric_processor.OperationCounterNumericProcessor)
         
         result.sort()
         self.assertEqual(len(result), 4)

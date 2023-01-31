@@ -1,19 +1,20 @@
 import json
-import urllib.request 
+import urllib.request
 
 
 class NumericProcessor:
     def __init__(self, computations_list):
         self.computations_list = computations_list
         # You can add more initialization code here if you'd like.
-    
+
     def run_computations(self):
         pass
-        # You will write code here, to go through self.computations_list.
+        # You will write code here, to go through the self.computations_list.
     
     
 
-def computations_list_from_file(filename):
+
+def load_computations_list_from_file(filename):
     with open(filename, 'r') as f:
         contents = json.load(f)
         return contents['computations']
@@ -30,7 +31,7 @@ def get_mathjs_api_url(expression):
 
 
 if __name__ == '__main__':
-    computations = computations_list_from_file('example.json')
+    computations = load_computations_list_from_file('example.json')
     processor = NumericProcessor(computations)
     processor.run_computations()
 

@@ -10,7 +10,7 @@ class NumericProcessor:
     
     def run_computations(self):
         for computation in self.computations:
-            self.last_result = self.run_computation(computation)
+            self.last_result = self.run_one_computation(computation)
     
     def replace_ans_with_last_result(self, values):
         new_values = []
@@ -22,7 +22,7 @@ class NumericProcessor:
         
         return new_values
     
-    def run_computation(self, computation):
+    def run_one_computation(self, computation):
         values = self.replace_ans_with_last_result(computation['values'])
         if computation['operation'] == 'add':
             return self.op_add(values)
@@ -63,7 +63,7 @@ class NumericProcessor:
         return float(result)
 
 
-def computations_list_from_file(filename):
+def load_computations_list_from_file(filename):
     with open(filename, 'r') as f:
         contents = json.load(f)
         return contents['computations']
@@ -78,35 +78,35 @@ def get_mathjs_api_url(expression):
     return url
 
 
-class NumericProcessor_CountOperations(NumericProcessor):
+class OperationCounterNumericProcessor(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
         self.count_operations = {}
     
-    def run_computation(self, computation):
+    def run_one_computation(self, computation):
         op = computation['operation']
         if op in self.count_operations:
             self.count_operations[op] += 1
         else:
             self.count_operations[op] = 1
         
-        return super().run_computation(computation)
+        return super().run_one_computation(computation)
     
     def show_statistics(self):
         for op in self.count_operations:
             count = self.count_operations[op]
             print(f'operation: {op}, count: {count}')
 
-# (Bonus class)
-class NumericProcessor_BenchmarkOperations(NumericProcessor):
+# (Bonus challenge)
+class BenchmarkOperationsNumericProcessor(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
         self.count_operations = {}
         self.benchmark_operations = {}
     
-    def run_computation(self, computation):
+    def run_one_computation(self, computation):
         started = time.time()
-        ret = super().run_computation(computation)
+        ret = super().run_one_computation(computation)
         ended = time.time()
         duration = ended - started
         
@@ -129,8 +129,8 @@ class NumericProcessor_BenchmarkOperations(NumericProcessor):
             print(f'operation: {op}, average duration: {duration}')
 
 if __name__ == '__main__':
-    computations = computations_list_from_file('example.json')
-    processor = NumericProcessor_CountOperations(computations)
+    computations = load_computations_list_from_file('example.json')
+    processor = OperationCounterNumericProcessor(computations)
     processor.run_computations()
     processor.show_statistics()
 
