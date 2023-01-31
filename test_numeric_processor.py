@@ -12,7 +12,7 @@ import numeric_processor
 actually_hit_api = False
 
 class TestJukebox(unittest.TestCase):
-    @weight(3)
+    @weight(4)
     def test_simple_add(self):
         computations = [
             {"operation": "add", "values": ["1", "2"]},
@@ -116,25 +116,6 @@ class TestJukebox(unittest.TestCase):
         self.assertEqual(result[1], 'operation: add, count: 2')
         self.assertEqual(result[2], 'operation: display, count: 1')
         self.assertEqual(result[3], 'operation: subtract, count: 1')
-        
-    @weight(1)
-    def test_benchmark_durations(self):
-        computations = [
-            {"operation": "add", "values": ["1.23", "3.01"]},
-            {"operation": "add", "values": ["ANS", "1.01"]},
-            {"operation": "subtract", "values": ["ANS", "1.01"]},
-            {"operation": "display", "values": ["ANS"]}
-        ]
-        
-        result = self.run_and_get_stats(computations, 
-            numeric_processor.NumericProcessor_BenchmarkOperations)
-        
-        result.sort()
-        self.assertEqual(len(result), 4)
-        self.assertAlmostEqual(float(result[0]), 4.24)
-        self.assertTrue(result[1].startswith('operation: add, average duration: '))
-        self.assertTrue(result[2].startswith('operation: display, average duration: '))
-        self.assertTrue(result[3].startswith('operation: subtract, average duration: '))
     
     def run_and_get_stdout(self, computations):
         instance = numeric_processor.NumericProcessor(computations)

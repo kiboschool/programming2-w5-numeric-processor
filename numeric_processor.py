@@ -3,7 +3,6 @@ import json
 import urllib.request 
 import time
 
-
 class NumericProcessor:
     def __init__(self, computations_list):
         self.last_result = None
@@ -54,7 +53,7 @@ class NumericProcessor:
         
     def op_display(self, values):
         print(values[0])
-        return values[0]
+        return float(values[0])
     
     def op_api_compute(self, values):
         expression = values[0]
@@ -70,10 +69,15 @@ def computations_list_from_file(filename):
         return contents['computations']
 
 def get_mathjs_api_url(expression):
+    # Expression is a string such as '1 + 1'.
+    # Some characters need to be transformed when they are sent to the api.
+    # urllib.parse.quote does this.
+    # For example, it turns '+' into the code '%2B' so that the api can receieve it.
     expression = urllib.parse.quote(expression)
     url = 'http://api.mathjs.org/v4/?expr=' + expression
     return url
-    
+
+
 class NumericProcessor_CountOperations(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
@@ -93,6 +97,7 @@ class NumericProcessor_CountOperations(NumericProcessor):
             count = self.count_operations[op]
             print(f'operation: {op}, count: {count}')
 
+# (Bonus class)
 class NumericProcessor_BenchmarkOperations(NumericProcessor):
     def __init__(self, filename):
         super().__init__(filename)
@@ -125,9 +130,9 @@ class NumericProcessor_BenchmarkOperations(NumericProcessor):
 
 if __name__ == '__main__':
     computations = computations_list_from_file('example.json')
-    o = NumericProcessor_CountOperations(computations)
-    o.run_computations()
-    o.show_statistics()
+    processor = NumericProcessor_CountOperations(computations)
+    processor.run_computations()
+    processor.show_statistics()
 
 
 
