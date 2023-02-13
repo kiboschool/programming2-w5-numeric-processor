@@ -149,8 +149,8 @@ The `NumericProcessor` should now be able to run the `example_api.json` file.
 Use **class inheritance** to add the ability to run in a different mode that gathers statistics.
 
 - Create a class called `OperationCounterNumericProcessor` that inherits from `NumericProcessor`.
-- Create a `__init__` method that receives a filename.
-  - In this method, add `super().__init__(filename)` to call the parent class's init.
+- Create a `__init__` method that receives a list of computations in (a parameter called `computations_list`).
+  - In this method, add `super().__init__(computations_list)` to call the parent class's init.
   - In this method, create a dictionary called `self.count_operations`.
 - Create a `run_one_computation` method that receives a computation.
   - This method overrides the parent class `run_one_computation`.
