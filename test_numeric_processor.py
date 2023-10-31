@@ -8,7 +8,7 @@ from gradescope_utils.autograder_utils.decorators import weight
 import numeric_processor
 
 class TestNumericProcessor(unittest.TestCase):
-    @weight(4)
+    @weight(6)
     def test_simple_add(self):
         computations = [
             {"operation": "add", "values": ["1", "2"]},
@@ -18,7 +18,7 @@ class TestNumericProcessor(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 3)
     
-    @weight(3)
+    @weight(4.5)
     def test_add(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -29,7 +29,7 @@ class TestNumericProcessor(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 5.25)
     
-    @weight(3)
+    @weight(4.5)
     def test_subtract(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -40,7 +40,7 @@ class TestNumericProcessor(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 3.23)
         
-    @weight(3)
+    @weight(4.5)
     def test_multiply(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -51,7 +51,7 @@ class TestNumericProcessor(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 4.664)
         
-    @weight(3)
+    @weight(4.5)
     def test_divide(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
