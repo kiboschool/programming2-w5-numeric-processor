@@ -62,7 +62,7 @@ class TestNumericProcessor(unittest.TestCase):
         result = self.run_and_get_stdout(computations)
         self.assertAlmostEqual(float(result), 1.696)
     
-    @weight(1)
+    @weight(1.5)
     def test_display(self):
         computations = [
             {"operation": "add", "values": ["3", "4"]},
@@ -78,7 +78,7 @@ class TestNumericProcessor(unittest.TestCase):
         self.assertAlmostEqual(float(result[0]), 7)
         self.assertAlmostEqual(float(result[1]), 11)
     
-    @weight(1)
+    @weight(1.5)
     def test_api_call(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -90,7 +90,7 @@ class TestNumericProcessor(unittest.TestCase):
             'http://api.mathjs.org/v4/?expr=2%2A3')
         self.assertAlmostEqual(float(result), 6)
         
-    @weight(1)
+    @weight(1.5)
     def test_api_call_with_plus_and_parens(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
@@ -102,7 +102,7 @@ class TestNumericProcessor(unittest.TestCase):
             'http://api.mathjs.org/v4/?expr=2%2A%283%2B5%29')
         self.assertAlmostEqual(float(result), 16)
     
-    @weight(1)
+    @weight(1.5)
     def test_benchmark_counts(self):
         computations = [
             {"operation": "add", "values": ["1.23", "3.01"]},
