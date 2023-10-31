@@ -171,16 +171,16 @@ operation: display, count: 1
 
 You can now change the test code at the bottom of the file. You can create an instance of `OperationCounterNumericProcessor` and use it just like `NumericProcessor`. At the end, you can call `show_statistics` on the instance and see the counts.
 
-## Rubric
+## Correctness Rubric
 
-| Points | Criteria                           | Description                                                                                     |
-| ------ | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
-| 20     | Simple computation                 | Program can add two numbers and show the result                                                 |
-| 60     | All operations supported           | Program can add (15 points), subtract (15 points), multiply (15 points), and divide (15 points) |
-| 5      | Display                            | Program supports more than one display in an input file                                         |
-| 5      | Simple api call                    | Program can run a simple api call                                                               |
-| 5      | More-complicated api call          | Program can run a more-complicated api call                                                     |
-| 5      | `OperationCounterNumericProcessor` | Program can count how many times operations were run                                            |
+| Points | Criteria                           | Description                                                                                         |
+| ------ | ---------------------------------- | --------------------------------------------------------------------------------------------------- |
+| 6      | Simple computation                 | Program can add two numbers and show the result                                                     |
+| 18     | All operations supported           | Program can add (4.5 points), subtract (4.5 points), multiply (4.5 points), and divide (4.5 points) |
+| 1.5    | Display                            | Program supports more than one display in an input file                                             |
+| 1.5    | Simple api call                    | Program can run a simple api call                                                                   |
+| 1.5    | More-complicated api call          | Program can run a more-complicated api call                                                         |
+| 1.5    | `OperationCounterNumericProcessor` | Program can count how many times operations were run                                                |
 
 ### Additional Challenges (Optional)
 
@@ -190,5 +190,3 @@ You can now change the test code at the bottom of the file. You can create an in
   - It measures the average duration for each type of operation.
   - Refer to the reflex-typing-speed project from Programming 1 for how to use `time.time()` to measure how long something takes.
   - It would show, for example, `operation: api-compute, average duration: 0.4564`.
-
-
