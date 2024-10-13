@@ -1,0 +1,6 @@
+{
+  "computations": [
+    { "operation": "add", "values": ["2.54", "1.89"] },
+    { "operation": "display", "values": ["ANS"] }
+  ]
+}
